@@ -15,11 +15,11 @@
   },
   "foam.edit.linkReferenceDefinitions": "off",
   "foam.openDailyNote.directory": "journal",
-  "foam.openDailyNote.titleFormat": "fullDate",
+  "foam.openDailyNote.titleFormat": "isoUtcDateTime",
   "git.enableSmartCommit": true,
   "git.postCommitCommand": "sync",
   "markdown.preview.breaks": true,
-  "pasteImage.path": "${projectRoot}/attachments",
+  "pasteImage.path": "${currentFileDir}/images",
   "pasteImage.showFilePathConfirmInputBox": true,
   "prettier.singleQuote": false,
 }
