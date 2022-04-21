@@ -22,4 +22,11 @@
   "pasteImage.path": "${currentFileDir}/images",
   "pasteImage.showFilePathConfirmInputBox": true,
   "prettier.singleQuote": false,
+  "spellright.language": [
+    "zh-CN"
+  ],
+  "spellright.documentTypes": [
+    "latex",
+    "plaintext"
+  ],
 }
