@@ -76,6 +76,19 @@ Apr 23 16:20:01 iZwz9ejck3djoyghr9h865Z systemd[1]: Started bore service.
 Apr 23 16:20:01 iZwz9ejck3djoyghr9h865Z bore[241914]: 2022-04-23T08:20:01.902721Z  INFO bore_cli::server: server listening addr=0.0.0.0:7835
 ```
 
+## 安全访问
+可以通过 `--secret <secret string>` 参数来保护服务器不被其他人使用，当然，这只是保护握手阶段，后续不会进一步加密流量。
+
+就像这样
+```
+# on the server
+bore server --secret my_secret_string
+
+# on the client
+bore local <LOCAL_PORT> --to <TO> --secret my_secret_string
+```
+
+
 ## 服务端帮助
 ```
 bore-server 0.3.0
