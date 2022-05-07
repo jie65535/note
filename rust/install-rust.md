@@ -3,6 +3,8 @@ tags: #rust
 ---
 # 安装Rust环境
 
+[官方文档](https://doc.rust-lang.org/cargo/getting-started/installation.html)
+
 从`https://sh.rustup.rs`获取安装脚本，执行脚本安装
 
 ```bash

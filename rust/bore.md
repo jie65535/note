@@ -37,6 +37,58 @@ $ bore local 22 --to jie65535.top --port 9022
 2022-04-21T09:11:39.835322Z  INFO bore_cli::client: listening at jie65535.top:9022
 ```
 
+## systemd 服务
+用 `cargo install bore-cli` 安装后执行 `sudo ln -s ~/.cargo/bin/bore /usr/bin` 创建软连接。
+
+然后在 `/etc/systemd/system` 目录下新建 `bore.service`，添加以下内容
+```
+[Unit]
+Description=bore service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart=bore server
+Restart=always
+RestartSec=60s
+User=root
+
+[Install]
+WantedBy=default.target
+```
+接着执行 `sudo systemctl enable bore.service` 即可开机自启。
+用 `sudo systemctl start bore.service` 来启动服务。
+用 `sudo systemctl status bore.service` 查看状态。
+这些都是 `systemd` 的基操了，不多赘述。
+成功的话状态会输出以下信息
+```
+$ sudo systemctl status bore.service
+● bore.service - bore service
+   Loaded: loaded (/etc/systemd/system/bore.service; enabled; vendor preset: enabled)
+   Active: active (running) since Sat 2022-04-23 16:20:01 CST; 2min 55s ago
+ Main PID: 241914 (bore)
+    Tasks: 3 (limit: 11738)
+   Memory: 288.0K
+   CGroup: /system.slice/bore.service
+           └─241914 /usr/bin/bore server
+
+Apr 23 16:20:01 iZwz9ejck3djoyghr9h865Z systemd[1]: Started bore service.
+Apr 23 16:20:01 iZwz9ejck3djoyghr9h865Z bore[241914]: 2022-04-23T08:20:01.902721Z  INFO bore_cli::server: server listening addr=0.0.0.0:7835
+```
+
+## 安全访问
+可以通过 `--secret <secret string>` 参数来保护服务器不被其他人使用，当然，这只是保护握手阶段，后续不会进一步加密流量。
+
+就像这样
+```
+# on the server
+bore server --secret my_secret_string
+
+# on the client
+bore local <LOCAL_PORT> --to <TO> --secret my_secret_string
+```
+
+
 ## 服务端帮助
 ```
 bore-server 0.3.0
